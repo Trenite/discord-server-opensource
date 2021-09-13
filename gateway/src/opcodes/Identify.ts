@@ -50,12 +50,13 @@ export async function onIdentify(this: WebSocket, data: Payload) {
 		this.shard_id = identify.shard[0];
 		this.shard_count = identify.shard[1];
 		if (
-			!this.shard_count ||
-			!this.shard_id ||
+			this.shard_count == null ||
+			this.shard_id == null ||
 			this.shard_id >= this.shard_count ||
 			this.shard_id < 0 ||
 			this.shard_count <= 0
 		) {
+			console.log(identify.shard);
 			return this.close(CLOSECODES.Invalid_shard);
 		}
 	}

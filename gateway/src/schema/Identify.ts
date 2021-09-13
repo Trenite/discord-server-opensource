@@ -43,6 +43,7 @@ export const IdentifySchema = {
 		$user_guild_settings_version: Number,
 	},
 	$v: Number,
+	$version: Number,
 };
 
 export interface IdentifySchema {

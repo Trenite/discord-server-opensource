@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { emitEvent, getPermission, GuildBanAddEvent, GuildBanRemoveEvent, Guild, Ban, User, Member } from "@fosscord/util";
 import { HTTPError } from "lambert-server";
-import { getIpAdress, check, route } from "@fosscord/api";
+import { getIpAdress, route } from "@fosscord/api";
 
 export interface BanCreateSchema {
 	delete_message_days?: string;

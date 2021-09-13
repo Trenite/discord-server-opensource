@@ -1,7 +1,7 @@
 import { Router, Response, Request } from "express";
 import { Attachment, Channel, ChannelType, Embed, getPermission, Message } from "@fosscord/util";
 import { HTTPError } from "lambert-server";
-import { instanceOf, Length, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import multer from "multer";
 import { sendMessage } from "@fosscord/api";
 import { uploadFile } from "@fosscord/api";
@@ -62,17 +62,12 @@ router.get("/", async (req: Request, res: Response) => {
 	if (!channel) throw new HTTPError("Channel not found", 404);
 
 	isTextChannel(channel.type);
+	const around = `${req.query.around}`;
+	const before = `${req.query.before}`;
+	const after = `${req.query.after}`;
+	const limit = Number(req.query.limit) || 50;
+	if (limit < 1 || limit > 100) throw new HTTPError("limit must be between 1 and 100");
 
-	try {
-		instanceOf({ $around: String, $after: String, $before: String, $limit: new Length(Number, 1, 100) }, req.query, {
-			path: "query",
-			req
-		});
-	} catch (error) {
-		return res.status(400).json({ code: 50035, message: "Invalid Query", success: false, errors: error });
-	}
-	var { around, after, before, limit }: { around?: string; after?: string; before?: string; limit?: number } = req.query;
-	if (!limit) limit = 50;
 	var halfLimit = Math.floor(limit / 2);
 
 	const permissions = await getPermission(req.user_id, channel.guild_id, channel_id);

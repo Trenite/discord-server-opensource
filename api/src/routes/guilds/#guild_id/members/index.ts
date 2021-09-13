@@ -1,7 +1,8 @@
 import { Request, Response, Router } from "express";
 import { Guild, Member, PublicMemberProjection } from "@fosscord/util";
-import { instanceOf, Length, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import { MoreThan } from "typeorm";
+import { HTTPError } from "lambert-server";
 
 const router = Router();
 
@@ -11,26 +12,17 @@ const router = Router();
 
 router.get("/", route({}), async (req: Request, res: Response) => {
 	const { guild_id } = req.params;
-	const guild = await Guild.findOneOrFail({ id: guild_id });
-	await Member.IsInGuildOrFail(req.user_id, guild_id);
-
-	try {
-		instanceOf({ $limit: new Length(Number, 1, 1000), $after: String }, req.query, {
-			path: "query",
-			req,
-			ref: { obj: null, key: "" }
-		});
-	} catch (error) {
-		return res.status(400).json({ code: 50035, message: "Invalid Query", success: false, errors: error });
-	}
-
-	const { limit, after } = (<unknown>req.query) as { limit?: number; after?: string };
+	const limit = Number(req.query.limit) || 1;
+	if (limit > 1000 || limit < 1) throw new HTTPError("Limit must be between 1 and 1000");
+	const after = `${req.query.after}`;
 	const query = after ? { id: MoreThan(after) } : {};
+
+	await Member.IsInGuildOrFail(req.user_id, guild_id);
 
 	const members = await Member.find({
 		where: { guild_id, ...query },
 		select: PublicMemberProjection,
-		take: limit || 1,
+		take: limit,
 		order: { id: "ASC" }
 	});
 

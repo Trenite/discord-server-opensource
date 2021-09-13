@@ -6,7 +6,6 @@ import "missing-native-js-functions";
 import { generateToken } from "./login";
 import { getIpAdress, IPAnalysis, isProxy } from "@fosscord/api";
 import { HTTPError } from "lambert-server";
-import { In } from "typeorm";
 
 const router: Router = Router();
 

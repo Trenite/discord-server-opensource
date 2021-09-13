@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import { Role, Guild, Snowflake, Config, User, Member, Channel } from "@fosscord/util";
-import { HTTPError } from "lambert-server";
-import { check, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import { DiscordApiErrors } from "@fosscord/util";
 import { ChannelModifySchema } from "../channels/#channel_id";
 

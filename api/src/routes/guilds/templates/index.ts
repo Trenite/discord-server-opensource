@@ -1,8 +1,7 @@
 import { Request, Response, Router } from "express";
 const router: Router = Router();
 import { Template, Guild, Role, Snowflake, Config, User, Member } from "@fosscord/util";
-import { HTTPError } from "lambert-server";
-import { check, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import { DiscordApiErrors } from "@fosscord/util";
 
 export interface GuildTemplateCreateSchema {

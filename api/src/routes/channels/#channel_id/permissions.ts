@@ -2,7 +2,7 @@ import { Channel, ChannelPermissionOverwrite, ChannelUpdateEvent, emitEvent, get
 import { Router, Response, Request } from "express";
 import { HTTPError } from "lambert-server";
 
-import { check, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 const router: Router = Router();
 
 // TODO: Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a MANAGE_ROLES overwrite in the channel)

@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import path from "path";
 import { initRateLimits } from "./middlewares/RateLimit";
 import TestClient from "./middlewares/TestClient";
+import ApplicationsClient from "./middlewares/ApplicationsClient";
 import { initTranslation } from "./middlewares/Translation";
 
 export interface FosscordServerOptions extends ServerOptions {}
@@ -63,6 +64,7 @@ export class FosscordServer extends Server {
 		app.use("/api/v9", api);
 		app.use("/api", api); // allow unversioned requests
 		this.app.use(ErrorHandler);
+		ApplicationsClient(this.app);
 		TestClient(this.app);
 
 		return super.start();

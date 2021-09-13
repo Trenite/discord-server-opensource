@@ -11,8 +11,7 @@ import {
 	DiscordApiErrors
 } from "@fosscord/util";
 import { HTTPError } from "lambert-server";
-import { check, route } from "@fosscord/api";
-import { In } from "typeorm";
+import { route } from "@fosscord/api";
 
 const router: Router = Router();
 

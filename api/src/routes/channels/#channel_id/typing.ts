@@ -9,14 +9,14 @@ router.post("/", route({ permission: "SEND_MESSAGES" }), async (req: Request, re
 	const user_id = req.user_id;
 	const timestamp = Date.now();
 	const channel = await Channel.findOneOrFail({ id: channel_id });
-	const member = await Member.findOneOrFail({ id: user_id });
+	const member = await Member.findOneOrFail({ where: { id: user_id }, relations: ["roles"] });
 
 	await emitEvent({
 		event: "TYPING_START",
 		channel_id: channel_id,
 		data: {
 			// this is the paylod
-			member: { ...member, roles: member.roles.map((x) => x.id) },
+			member: { ...member, roles: member.roles?.map((x) => x.id) },
 			channel_id,
 			timestamp,
 			user_id,

@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { User, PrivateUserProjection } from "@fosscord/util";
-import { check, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import { handleFile } from "@fosscord/api";
 
 const router: Router = Router();
@@ -38,6 +38,25 @@ router.patch("/", route({ body: "UserModifySchema" }), async (req: Request, res:
 
 	res.json(user);
 });
+
+export async function generateToken(id: string) {
+	const iat = Math.floor(Date.now() / 1000);
+	const algorithm = "HS256";
+
+	return new Promise((res, rej) => {
+		jwt.sign(
+			{ id: id, iat },
+			Config.get().security.jwtSecret,
+			{
+				algorithm
+			},
+			(err, token) => {
+				if (err) return rej(err);
+				return res(token);
+			}
+		);
+	});
+}
 
 export default router;
 // {"message": "Invalid two-factor code", "code": 60008}

@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express";
-import { getPermission, Guild } from "@fosscord/util";
-import { HTTPError } from "lambert-server";
-import { check, route } from "@fosscord/api";
+import { Guild } from "@fosscord/util";
+import { route } from "@fosscord/api";
 
 export interface WidgetModifySchema {
 	enabled: boolean; // whether the widget is enabled

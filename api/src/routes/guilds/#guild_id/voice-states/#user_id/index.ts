@@ -1,5 +1,5 @@
 import { Channel, ChannelType, DiscordApiErrors, emitEvent, getPermission, VoiceState, VoiceStateUpdateEvent } from "@fosscord/util";
-import { check, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import { Request, Response, Router } from "express";
 
 const router = Router();

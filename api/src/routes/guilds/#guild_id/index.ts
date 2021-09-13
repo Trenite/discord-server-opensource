@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { emitEvent, getPermission, Guild, GuildUpdateEvent, Member } from "@fosscord/util";
 import { HTTPError } from "lambert-server";
-import { check, route } from "@fosscord/api";
+import { route } from "@fosscord/api";
 import { handleFile } from "@fosscord/api";
 import "missing-native-js-functions";
 import { GuildCreateSchema } from "../index";
