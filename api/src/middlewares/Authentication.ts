@@ -9,6 +9,7 @@ export const NO_AUTHORIZATION_ROUTES = [
 	"/ping",
 	"/gateway",
 	"/experiments",
+	"/download"
 	/\/guilds\/\d+\/widget\.(json|png)/
 ];
 
