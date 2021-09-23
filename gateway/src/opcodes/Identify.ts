@@ -20,11 +20,17 @@ import {
 import { setupListener } from "../listener/listener";
 import { IdentifySchema } from "../schema/Identify";
 import { Send } from "@fosscord/gateway/util/Send";
-// import experiments from "./experiments.json";
-const experiments: any = [];
+import experiments from "./experiments.json";
+import guildExperiments from "./guild_experiments.json";
 import { check } from "./instanceOf";
+import { encodeGuildExperiment } from "../util/Experiments";
 import { Recipient } from "@fosscord/util";
 import { genSessionId } from "@fosscord/gateway/util/SessionUtils";
+
+let guild_experiments: any = [];
+if (guildExperiments.length) guildExperiments.forEach((experiment, index) => {
+	guild_experiments[index] = encodeGuildExperiment(experiment) as any;
+});
 
 // TODO: bot sharding
 // TODO: check priviliged intents
@@ -173,7 +179,7 @@ export async function onIdentify(this: WebSocket, data: Payload) {
 			x.threads = [];
 			return x;
 		}),
-		guild_experiments: [], // TODO
+		guild_experiments, // TODO
 		geo_ordered_rtc_regions: [], // TODO
 		relationships: user.relationships.map((x) => x.toPublicRelationship()),
 		read_state: {

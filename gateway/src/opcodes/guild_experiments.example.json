@@ -1,0 +1,43 @@
+[
+    {
+        "hashKey": 3563379711,
+        "revision": 0,
+        "populations": [
+          {
+            "buckets": {
+              "1": {
+                "rollout": [
+                  {
+                    "min": 0,
+                    "max": 1000
+                  }
+                ]
+              },
+              "2": {
+                "rollout": [
+                  {
+                    "min": 1000,
+                    "max": 10000
+                  }
+                ]
+              }
+            },
+            "filters": [
+              {
+                "type": "guild_ids",
+                "ids": [
+                  1234,
+                  5678
+                ]
+              }
+            ]
+          }
+        ],
+        "overrides": {
+          "2": [
+            "203290518795452416"
+          ]
+        }
+      }
+      
+]

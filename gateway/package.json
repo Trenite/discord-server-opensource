@@ -34,6 +34,7 @@
 		"lambert-server": "^1.2.8",
 		"missing-native-js-functions": "^1.2.15",
 		"mongoose-autopopulate": "^0.12.3",
+		"murmurhash": "^2.0.0",
 		"node-fetch": "^2.6.1",
 		"typeorm": "^0.2.37",
 		"uuid": "^8.3.2",

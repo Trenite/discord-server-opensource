@@ -105,3 +105,6 @@ dist
 .DS_Store
 
 data
+
+# Guild experiments
+src/opcodes/guild_experiments.json
