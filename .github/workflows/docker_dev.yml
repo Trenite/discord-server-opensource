@@ -1,0 +1,12 @@
+name: Docker Dev
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  docker:
+    uses: ./.github/workflows/docker.yml
+    with:
+      tag: dev
+    secrets: inherit

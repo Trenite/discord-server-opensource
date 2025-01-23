@@ -1,0 +1,37 @@
+name: Docker
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+        description: 'The tag to use for the Docker image'
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lowercase repository name
+        run: |
+          echo "IMAGE_NAME=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository }}'
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Containerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.tag }}
